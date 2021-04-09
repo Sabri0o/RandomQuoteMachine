@@ -1,18 +1,17 @@
 import React from "react";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { faTwitter, faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import randomColor from "randomcolor";
-
 export default class RandomQuoteMachine extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       quote: {
-text:'quotes are fetched from "https://type.fit/api/quotes"',
-author : 'created by Sabri Trabelsi'
+        text: 'quotes are fetched from "https://type.fit/api/quotes"',
+        author: "created by Sabri Trabelsi"
       },
       color: randomColor()
     };
@@ -46,6 +45,8 @@ author : 'created by Sabri Trabelsi'
 
   render() {
     const { text, author } = this.state.quote;
+    const quote = `"${text}" ${author ? author : "Unknown"} %23quote`;
+    const twitterHref = "https://twitter.com/intent/tweet?text=" + quote;
     const color = this.state.color;
     return (
       <Container id="quote-box">
@@ -56,9 +57,8 @@ author : 'created by Sabri Trabelsi'
           <Card.Body>
             <blockquote className="blockquote mb-0">
               <p id="text" style={{ color: color }}>
-                {" "}
-                <FontAwesomeIcon icon={faQuoteLeft} pull="left" />{" "}
-                <span>{text}</span>
+                <FontAwesomeIcon icon={faQuoteLeft} pull="left" />
+                <span>{text}</span>{" "}
               </p>
               <footer style={{ color: color }} className="blockquote-footer">
                 <cite style={{ color: color }} id="author" title="Source Title">
@@ -70,7 +70,7 @@ author : 'created by Sabri Trabelsi'
           <Card.Footer style={{ backgroundColor: "white" }}>
             <Row>
               <Col>
-                <Card.Link id="tweet-quote" href="twitter.com/intent/tweet">
+                <Card.Link>
                   <Row
                     style={{
                       marginLeft: "1%"
@@ -85,27 +85,13 @@ author : 'created by Sabri Trabelsi'
                         borderRadius: "3px"
                       }}
                     >
-                      <FontAwesomeIcon
-                        icon={faTwitter}
-                        color="white"
-                        size="2x"
-                      />
-                    </div>
-                    <div
-                      style={{
-                        backgroundColor: color,
-                        height: "40px",
-                        width: "40px",
-                        padding: "5px",
-                        borderRadius: "3px",
-                        marginLeft: "3%"
-                      }}
-                    >
-                      <FontAwesomeIcon
-                        icon={faFacebook}
-                        color="white"
-                        size="2x"
-                      />
+                      <a id="tweet-quote" href={twitterHref}>
+                        <FontAwesomeIcon
+                          icon={faTwitter}
+                          color="white"
+                          size="2x"
+                        />
+                      </a>
                     </div>
                   </Row>
                 </Card.Link>
