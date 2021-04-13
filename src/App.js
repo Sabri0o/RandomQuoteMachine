@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import { faQuoteLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import randomColor from "randomcolor";
+// import randomColor from "randomcolor";
+import colors from './color'
 export default class RandomQuoteMachine extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +14,7 @@ export default class RandomQuoteMachine extends React.Component {
         text: 'quotes are fetched from "https://type.fit/api/quotes"',
         author: "created by Sabri Trabelsi"
       },
-      color: randomColor()
+      color: colors[Math.floor(Math.random() * colors.length)] //randomColor()
     };
     this.newQuote = this.newQuote.bind(this);
   }
@@ -31,13 +32,14 @@ export default class RandomQuoteMachine extends React.Component {
   }
 
   newQuote() {
+    // console.log(this.state.color)
     fetch("https://type.fit/api/quotes")
       .then((response) => response.json())
       .then((res) => {
         console.log(res[Math.floor(Math.random() * res.length)]);
         this.setState({
           quote: res[Math.floor(Math.random() * res.length)],
-          color: randomColor()
+          color: colors[Math.floor(Math.random() * colors.length)]//randomColor()
         });
         document.body.style = `background: ${this.state.color}`;
       });
